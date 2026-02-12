@@ -12,7 +12,7 @@ PARSE_DIR   = parse/
 DATA_FILES  = dongle_create.c data_create.c coders_create.c
 UTILS_FILES = ft_strcmp.c ft_atol.c dongle_utils.c
 PARSE_FILES = parse.c
-CORE_FILES  = virtual.c
+CORE_FILES  = virtual.c monitoring.c write_status.c
 
 SRC = $(addprefix $(DATA_DIR), $(DATA_FILES)) \
       $(addprefix $(UTILS_DIR), $(UTILS_FILES)) \
