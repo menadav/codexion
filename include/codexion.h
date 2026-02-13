@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 11:53:49 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/12 15:17:15 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:28:14 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_dongle
 	pthread_mutex_t		dongl;
 	long long			available_cldw;
 	int					is_taken;
-	//future heap for edf t_heap
+	long				cldw;
 }	t_dongle;
 //===================================================//
 typedef struct s_data
@@ -69,12 +69,12 @@ t_data			*parse(char **av);
 t_data			*data_create(long *tokens);
 //===================================================//
 //======================dongle_create==================//
-t_dongle		*dongles_array(long max);
-int				create_dongle(t_dongle *dongles, long max);
+t_dongle		*dongles_array(long max, long cldw);
+int				create_dongle(t_dongle *dongles, long max, long cldw);
 //===================================================//
 //======================dongle_utils=================//
 long long		get_time_in_ms(void);
-void			release_dongle(t_dongle *dongle, t_data *data);
+void			take_dongle(t_dongle *dongle);
 int				can_take_dongle(t_dongle *dongle);
 //===================================================//
 //===================== actions =====================//

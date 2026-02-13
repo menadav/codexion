@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 16:39:41 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/10 14:21:43 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/13 13:27:39 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_data	*data_create(long *tokens)
 	data->number_of_compiles_required = tokens[5];
 	data->dongle_cooldown = tokens[6];
 	data->scheduler = tokens[7];
-	data->dongles = dongles_array(tokens[0]);
+	data->dongles = dongles_array(tokens[0], tokens[6]);
 	if (!data->dongles)
 		return (free(data), NULL);
 	return (data);

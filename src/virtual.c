@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:22:33 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/12 15:18:30 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/13 19:16:46 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,33 @@
 
 void	compile_action(t_coder *coder)
 {
-	if ((coder->id % 2) != 0)
+	while(1)
 	{
-		pthread_mutex_lock(&coder->l_dg->dongl);
-		write_status(coder, "has taken left dongle");
-		pthread_mutex_lock(&coder->r_dg->dongl);
-		write_status(coder, "has taken right dongle");
+		//tengo que romper el bucle si muere alguien.
+		if ((coder->id % 2) != 0)
+		{
+			if (can_take_dongle(coder->l_dg) && can_take_dongle(coder->r_dg))
+			{
+				break ;
+			}
+		}
+		else
+		{
+			if (can_take_dongle(coder->r_dg) && can_take_dongle(coder->l_dg))	
+			{
+				break ;
+			}
+		}
 	}
-	else
-	{
-		pthread_mutex_lock(&coder->r_dg->dongl);
-		write_status(coder, "has taken right dongle");
-		pthread_mutex_lock(&coder->l_dg->dongl);
-		write_status(coder, "has taken left dongle");
-	}
+	write_status(coder, "has taken a dongle");
+	write_status(coder, "has taken a dongle");
 	pthread_mutex_lock(&coder->compile_mutex);
 	coder->last_compile_start = get_time_in_ms();
 	pthread_mutex_unlock(&coder->compile_mutex);
 	write_status(coder, "is compiling");
 	usleep(coder->data->time_to_compile * 1000);
-	pthread_mutex_unlock(&coder->l_dg->dongl);
-	pthread_mutex_unlock(&coder->r_dg->dongl);
+	take_dongle(coder->r_dg);
+	take_dongle(coder->l_dg);
 	coder->compiles_done++;
 }
 
