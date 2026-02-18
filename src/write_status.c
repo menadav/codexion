@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:54 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/12 15:23:08 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:47:20 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ int	write_status(t_coder *coder, char *status)
 {
 	long	time;
 
-	time = get_time_in_ms() - coder->data->start_time;
 	pthread_mutex_lock(&coder->data->death_lock);
+	time = get_time_in_ms() - coder->data->start_time;
 	if (coder->data->stop_sim)
 	{
-		if (ft_strcmp(status, "burned out") == 0 || ft_strcmp(status, "died") == 0)
+		if (ft_strcmp(status, "burned out") == 0
+			|| ft_strcmp(status, "died") == 0)
 		{
 			pthread_mutex_lock(&coder->data->write_lock);
 			printf("%ld %d %s\n", time, coder->id, status);

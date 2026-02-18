@@ -1,6 +1,6 @@
 NAME = codexion
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES    = -I include
 HEADER      = include/codexion.h
 
@@ -12,7 +12,9 @@ PARSE_DIR   = parse/
 DATA_FILES  = dongle_create.c data_create.c coders_create.c
 UTILS_FILES = ft_strcmp.c ft_atol.c dongle_utils.c
 PARSE_FILES = parse.c
-CORE_FILES  = virtual.c monitoring.c write_status.c
+CORE_FILES  = virtual.c monitoring.c write_status.c  fifo_compile.c \
+			  checking_bourn.c routine.c utils_routine.c edf_compile.c\
+			  solo_coder.c
 
 SRC = $(addprefix $(DATA_DIR), $(DATA_FILES)) \
       $(addprefix $(UTILS_DIR), $(UTILS_FILES)) \

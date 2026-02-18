@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 12:25:51 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/12 15:21:18 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/17 21:15:31 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ int	monitor_burnout(t_data *data)
 	while (i < data->number_of_coders)
 	{
 		pthread_mutex_lock(&data->coders[i].compile_mutex);
-		if (get_time_in_ms() - data->coders[i].last_compile_start >= data->time_to_burnout)
+		if (get_time_in_ms() - data->coders[i].last_compile_start
+			>= data->time_to_burnout)
 		{
 			pthread_mutex_lock(&data->death_lock);
 			data->stop_sim = 1;
 			pthread_mutex_unlock(&data->death_lock);
-			pthread_mutex_unlock(&data->coders[i].compile_mutex);
 			write_status(&data->coders[i], "burned out");
+			pthread_mutex_unlock(&data->coders[i].compile_mutex);
 			return (1);
 		}
 		if (data->coders[i].compiles_done >= data->number_of_compiles_required)

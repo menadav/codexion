@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 16:39:41 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/13 13:27:39 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/18 14:39:30 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ t_data	*data_create(long *tokens)
 {
 	t_data	*data;
 
+	if (tokens[0] < 1)
+		return (0);
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	if (tokens[0] <= 1)
-		return (0);
 	data->number_of_coders = tokens[0];
 	data->time_to_burnout = tokens[1];
 	data->time_to_compile = tokens[2];

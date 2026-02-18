@@ -6,7 +6,7 @@
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 11:53:49 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/13 15:28:14 by dmena-li         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:08:52 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,19 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <stdio.h>
 
 typedef struct s_coder	t_coder;
 typedef struct s_dongle
 {
 	pthread_mutex_t		dongl;
+	pthread_mutex_t		cldw_lock;
+	pthread_mutex_t		queue_lock;
 	long long			available_cldw;
-	int					is_taken;
 	long				cldw;
+	int					is_taken;
+	t_coder				*first_queue;
+	t_coder				*second_queue;
 }	t_dongle;
 //===================================================//
 typedef struct s_data
@@ -75,12 +80,14 @@ int				create_dongle(t_dongle *dongles, long max, long cldw);
 //======================dongle_utils=================//
 long long		get_time_in_ms(void);
 void			take_dongle(t_dongle *dongle);
-int				can_take_dongle(t_dongle *dongle);
+int				can_take_dongle(t_dongle *dongle, t_coder *coder);
+int				check_take_dongle(t_dongle *dongle, t_coder *coder);
 //===================================================//
 //===================== actions =====================//
 void			compile_action(t_coder *coder);
 void			debug_action(t_coder *coder);
 void			refactor_action(t_coder *coder);
+void			solo_coder(t_coder *coder);
 //===================================================//
 //======================virtual======================//
 void			create_coder(t_data *data, t_coder *coder, int i);
@@ -94,5 +101,14 @@ int				compiles_end(t_data *data, long end);
 int				monitor_burnout(t_data *data);
 void			*monitor_routine(void *arg);
 //===================================================//
+int				checking_bornout(t_coder *coder);
 int				write_status(t_coder *coder, char *status);
+//===================================================//
+//===================UTILS_ROUTINE===================//
+void			last_compile(t_coder *coder);
+void			free_queue(t_dongle *dongle1, t_dongle *dongle2);
+//===================FIFO/EDF========================//
+int				fifo_compile(t_coder *coder);
+int				edf_compile(t_coder *code);
+//===================================================//
 #endif

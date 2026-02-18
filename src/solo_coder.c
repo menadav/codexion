@@ -1,44 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   solo_coder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/07 11:52:13 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/18 19:13:27 by dmena-li         ###   ########.fr       */
+/*   Created: 2026/02/18 19:05:05 by dmena-li          #+#    #+#             */
+/*   Updated: 2026/02/18 19:26:40 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	free_data(t_data *data)
+void	solo_coder(t_coder *coder)
 {
-	if (!data)
-		return ;
-	if (data->coders)
-	{
-		free(data->coders);
-		data->coders = NULL;
-	}
-	if (data->dongles)
-	{
-		free(data->dongles);
-		data->dongles = NULL;
-	}
-	free(data);
-}
-
-int	main(int argc, char **argv)
-{
-	t_data	*data;
-
-	if (argc != 9)
-		return (-1);
-	data = parse(argv);
-	if (!data)
-		return (-1);
-	virtual_data(data);
-	free_data(data);
-	return (0);
+	pthread_mutex_lock(&coder->r_dg->dongl);
+	write_status(coder, "has taken a dongle");
+	usleep((coder->data->time_to_burnout * 1000) + 1000);
+	pthread_mutex_unlock(&coder->r_dg->dongl);
 }
