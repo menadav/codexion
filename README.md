@@ -22,8 +22,8 @@ Ejecuta el programa con los siguientes argumentos para iniciar la simulación:
 
 bash** **./codexion <coders> <t_burnout> <t_compile> <t_debug> <t_refactor> <n_compiles> <cooldown> <scheduler>** **
 
-| Argumento | Descripción | Ejemplo |
-| :--- | :--- | :--- |
+| Argumento | Descripción |
+| :--- | :--- |
 | coders | Número total de coders (hilos) y dongles. |
 | t_burnout | Tiempo (ms) que un coder sobrevive sin compilar. |
 | t_compile | Tiempo (ms) dedicado a compilar (usando 2 dongles). |
@@ -31,7 +31,7 @@ bash** **./codexion <coders> <t_burnout> <t_compile> <t_debug> <t_refactor> <n_c
 | t_refactor | Tiempo (ms) dedicado a refactorizar (sin dongles). |
 | n_compiles | La simulación se detiene si todos alcanzan este número. |
 | cooldown | Tiempo (ms) que un dongle queda inactivo tras su uso. |
-| scheduler | Política de arbitraje: fifo o edf. | fifo |
+| scheduler | Política de arbitraje: fifo o edf. |
 
 ## ⚙️ Arquitectura Técnica
 
