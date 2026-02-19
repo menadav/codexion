@@ -1,44 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   checking_burn.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmena-li <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/07 11:52:13 by dmena-li          #+#    #+#             */
-/*   Updated: 2026/02/18 19:13:27 by dmena-li         ###   ########.fr       */
+/*   Created: 2026/02/14 12:30:25 by dmena-li          #+#    #+#             */
+/*   Updated: 2026/02/18 19:36:19 by dmena-li         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static void	free_data(t_data *data)
+int	checking_bornout(t_coder *coder)
 {
-	if (!data)
-		return ;
-	if (data->coders)
-	{
-		free(data->coders);
-		data->coders = NULL;
-	}
-	if (data->dongles)
-	{
-		free(data->dongles);
-		data->dongles = NULL;
-	}
-	free(data);
-}
+	int	stop;
 
-int	main(int argc, char **argv)
-{
-	t_data	*data;
-
-	if (argc != 9)
-		return (-1);
-	data = parse(argv);
-	if (!data)
-		return (-1);
-	virtual_data(data);
-	free_data(data);
-	return (0);
+	pthread_mutex_lock(&coder->data->death_lock);
+	stop = coder->data->stop_sim;
+	pthread_mutex_unlock(&coder->data->death_lock);
+	return (stop);
 }
