@@ -22,16 +22,16 @@ Ejecuta el programa con los siguientes argumentos para iniciar la simulación:
 
 bash** **./codexion <coders> <t_burnout> <t_compile> <t_debug> <t_refactor> <n_compiles> <cooldown> <scheduler>** **
 
-| Argumento | Descripción |
-| :--- | :--- |
-| coders | Número total de coders (hilos) y dongles. |
-| t_burnout | Tiempo (ms) que un coder sobrevive sin compilar. |
-| t_compile | Tiempo (ms) dedicado a compilar (usando 2 dongles). |
-| t_debug | Tiempo (ms) dedicado a depurar (sin dongles). |
-| t_refactor | Tiempo (ms) dedicado a refactorizar (sin dongles). |
-| n_compiles | La simulación se detiene si todos alcanzan este número. |
-| cooldown | Tiempo (ms) que un dongle queda inactivo tras su uso. |
-| scheduler | Política de arbitraje: fifo o edf. |
+| Argumento | Descripción | Ejemplo |
+| :--- | :--- | :--- |
+| coders | Número total de coders (hilos) y dongles. | 10 |
+| t_burnout | Tiempo (ms) que un coder sobrevive sin compilar. | 800 |
+| t_compile | Tiempo (ms) dedicado a compilar (usando 2 dongles). | 200 |
+| t_debug | Tiempo (ms) dedicado a depurar (sin dongles). | 200 |
+| t_refactor | Tiempo (ms) dedicado a refactorizar (sin dongles). | 100 |
+| n_compiles | La simulación se detiene si todos alcanzan este número. | 4 |
+| cooldown | Tiempo (ms) que un dongle queda inactivo tras su uso. | 100 |
+| scheduler | Política de arbitraje: fifo o edf. | fifo |
 
 ## ⚙️ Arquitectura Técnica
 
